@@ -57,7 +57,7 @@ public class UsersApiFeatureTest {
 
         // Test get all Users
         when()
-                .get("http://localhost:8080/users")
+                .get("http://localhost:8080/users/")
         .then()
                 .statusCode(is(200))
                 .and().body(containsString("someone"))

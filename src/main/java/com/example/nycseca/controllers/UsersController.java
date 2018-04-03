@@ -55,7 +55,8 @@ public class UsersController {
         if (userFromDb == null) {
             throw new NotFoundException("User with ID of " + userId + " was not found!");
         }
-        User userFromDatabase = userFromDb.get();
+        User userFromDatabase;
+        userFromDatabase = userFromDb.get();
 
         userFromDatabase.setUserName(userRequest.getUserName());
         userFromDatabase.setFirstName(userRequest.getFirstName());

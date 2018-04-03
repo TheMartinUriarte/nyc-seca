@@ -49,8 +49,14 @@ dependencies {
 	runtime('org.springframework.boot:spring-boot-devtools')
 }
 
-test {
+task runUsersAPITests(type: Exec) {
+	workingDir './'
+	commandLine './gradlew', 'test'
+}
+
+task allTests(type: Test) {
 	dependsOn cleanTest
+	dependsOn runUsersAPITests
 
 	testLogging {
 		exceptionFormat "full"
@@ -58,3 +64,5 @@ test {
 		displayGranularity 2
 	}
 }
+
+dockerCompose.isRequiredBy(allTests)
