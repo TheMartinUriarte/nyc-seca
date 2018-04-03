@@ -4,9 +4,11 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
+		jcenter()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "com.avast.gradle:gradle-docker-compose-plugin:0.6.17"
 	}
 }
 
@@ -14,6 +16,12 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'docker-compose'
+
+dockerCompose {
+	useComposeFiles = ['docker-compose.yml']
+}
+dockerCompose.isRequiredBy(test)
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
