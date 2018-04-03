@@ -45,3 +45,13 @@ dependencies {
 	runtime('org.postgresql:postgresql')
 	runtime('org.springframework.boot:spring-boot-devtools')
 }
+
+test {
+	dependsOn cleanTest
+
+	testLogging {
+		exceptionFormat "full"
+		events "skipped", "passed", "failed"
+		displayGranularity 2
+	}
+}
