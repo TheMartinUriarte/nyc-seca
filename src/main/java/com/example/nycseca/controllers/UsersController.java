@@ -24,9 +24,9 @@ public class UsersController {
     }
 
     @GetMapping("/{userId}")
-    public User findUserById(@PathVariable Long userId) throws NotFoundException {
-
-        User foundUser = userRepository.findOne(userId);
+    public Optional<User> findUserById(@PathVariable Long userId) throws NotFoundException {
+        Optional<User> foundUser = userRepository.findById(userId);
+        // Got above code from #Debug channel
 
         if (foundUser == null) {
             throw new NotFoundException("User with ID of " + userId + " was not found!");
@@ -38,8 +38,29 @@ public class UsersController {
     @DeleteMapping("/{userId}")
     public HttpStatus deleteUserById(@PathVariable Long userId) throws EmptyResultDataAccessException {
 
-        userRepository.delete(userId);
+        userRepository.deleteById(userId);
         return HttpStatus.OK;
+    }
+
+    @PostMapping("/")
+    public User createNewUser(@RequestBody User newUser) {
+        return userRepository.save(newUser);
+    }
+
+    @PatchMapping("/{userId}")
+    public User updateUserById(@PathVariable Long userId, @RequestBody User userRequest) throws NotFoundException {
+
+        Optional<User> userFromDb = userRepository.findById(userId);
+
+        if (userFromDb == null) {
+            throw new NotFoundException("User with ID of " + userId + " was not found!");
+        }
+
+        userFromDb.setUserName(userRequest.getUserName());
+        userFromDb.setFirstName(userRequest.getFirstName());
+        userFromDb.setLastName(userRequest.getLastName());
+
+        return userRepository.save(userFromDb);
     }
 
     @ExceptionHandler
