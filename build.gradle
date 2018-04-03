@@ -20,6 +20,7 @@ apply plugin: 'docker-compose'
 
 dockerCompose {
 	useComposeFiles = ['docker-compose.yml']
+	useComposeFiles = ['docker-compose.test.yml']
 }
 dockerCompose.isRequiredBy(test)
 

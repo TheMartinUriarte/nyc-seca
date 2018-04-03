@@ -2,7 +2,7 @@ package com.example.nycseca.controllers;
 
 import com.example.nycseca.models.User;
 import com.example.nycseca.repositories.UserRepository;
-import io.restassured.mapper.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
